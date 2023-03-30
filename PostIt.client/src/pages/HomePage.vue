@@ -24,6 +24,7 @@
         <button class="btn btn-outline-dark" @click="changeFilterCategory('coding')">Coding</button>
         <button class="btn btn-outline-dark" @click="changeFilterCategory('games')">Games</button>
         <button class="btn btn-outline-dark" @click="changeFilterCategory('music')">Music</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('fish')">Fish</button>
         <button class="btn btn-outline-dark" @click="changeFilterCategory('misc')">Misc</button>
       </div>
     </div>
@@ -42,6 +43,9 @@
       </div>
     </div>
   </div>
+
+
+  <AlbumForm />
 </template>
 
 <script>

@@ -27,7 +27,7 @@ import { RouterLink } from 'vue-router';
 
 export default {
   props: {
-    album: { type: Album, required: true }
+    album: { type: Object, required: true }
   },
   setup() {
     return {};

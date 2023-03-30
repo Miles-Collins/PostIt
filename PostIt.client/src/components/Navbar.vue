@@ -14,7 +14,9 @@
       <ul class="navbar-nav me-auto">
         <li>
           <!-- NOTE import button from modal -->
-          <button class="btn btn-success">Create Album</button>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Create Album
+          </button>
           <!-- <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
           </router-link> -->
