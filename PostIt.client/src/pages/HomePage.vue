@@ -1,15 +1,31 @@
 <template>
-  <!-- SECTION MY ALBUMS -->
+  <!-- SECTION MY ALBUMS or ALBUMS I COLLABORATE ON -->
   <div class="row justify-content-center">
     <div class="col-md-10">
       <h1>My Albums</h1>
+      <div class="row" v-if="account.id == albums.creatorId">
+        <div class="col-md-4" v-for="a in myAlbums" :key="a.id">
+          <AlbumCard :album="a" />
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- SECTION FILTER BAR -->
   <div class="row justify-content-center">
-    <div class="col-md-8">
-      <h1>Search Bar</h1>
+    <div class="col-md-10">
+      <div class="d-flex justify-content-around p-3">
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('')">All</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('cars')">Cars</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('animals')">Animals</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('pokemon')">Pokemon</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('germs')">Germs</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('food')">Food</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('coding')">Coding</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('games')">Games</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('music')">Music</button>
+        <button class="btn btn-outline-dark" @click="changeFilterCategory('misc')">Misc</button>
+      </div>
     </div>
   </div>
 
@@ -29,7 +45,7 @@
 </template>
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import AlbumCard from '../components/AlbumCard.vue';
 import { albumsService } from '../services/AlbumsService.js';
@@ -37,6 +53,8 @@ import Pop from '../utils/Pop.js';
 
 export default {
   setup() {
+
+    const filterCategory = ref('')
 
     async function getAllAlbums() {
       try {
@@ -48,12 +66,26 @@ export default {
         Pop.error(("[ERROR]"), error.message);
       }
     }
+
     onMounted(() => {
       getAllAlbums();
     });
 
     return {
-      albums: computed(() => AppState.albums)
+      albums: computed(() => {
+        if (!filterCategory.value) {
+          return AppState.albums
+        } else {
+          return AppState.albums.filter(a => a.category == filterCategory.value)
+        }
+      }),
+      myAlbums: computed(() => AppState.myAlbums),
+      account: computed(() => AppState.account),
+
+      changeFilterCategory(category) {
+        filterCategory.value = category
+      }
+
     };
   },
   components: { AlbumCard }

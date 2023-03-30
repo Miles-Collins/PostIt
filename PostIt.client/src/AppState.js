@@ -7,5 +7,7 @@ export const AppState = reactive({
   account: {},
 
    /** @type {import('./models/Album.js').Album[]} */
-  albums: []
+  albums: [],
+  album: {},
+  myAlbums: []
 })
