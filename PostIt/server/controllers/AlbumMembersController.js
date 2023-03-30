@@ -4,7 +4,7 @@ import BaseController from "../utils/BaseController";
 
 export class AlbumMembersController extends BaseController {
   constructor() {
-    super("api/albumMembers");
+    super("api/collaborators");
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post("", this.create)

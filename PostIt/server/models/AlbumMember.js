@@ -14,7 +14,7 @@ AlbumsMemberSchema.virtual("album", {
   ref: "Album",
 });
 
-AlbumsMemberSchema.virtual("account", {
+AlbumsMemberSchema.virtual("profile", {
   localField: "accountId",
   foreignField: "_id",
   justOne: true,
