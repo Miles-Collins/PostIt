@@ -4,9 +4,7 @@ import { albumsService } from "./AlbumsService";
 
 class AlbumMembersService {
   async delete(memberId, userId) {
-    let member = await dbContext.AlbumMember.findById(memberId).populate(
-      "account"
-    );
+    let member = await dbContext.AlbumMember.findById(memberId);
     if (member == null) {
       throw new BadRequest("This member does not exist.");
     }
@@ -25,7 +23,7 @@ class AlbumMembersService {
 
     let member = await dbContext.AlbumMember.create(memberData);
     await member.populate("album");
-    await member.populate("account");
+    await member.populate("profile");
     return member;
   }
 }

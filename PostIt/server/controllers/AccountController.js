@@ -9,7 +9,8 @@ export class AccountController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get("", this.getUserAccount)
-      .get("/albums", this.getAlbums);
+      .get("/albums", this.getAlbums)
+      .get("/collaborators", this.getCollaboratedAlbums);
   }
 
   async getUserAccount(req, res, next) {
@@ -25,6 +26,16 @@ export class AccountController extends BaseController {
     try {
       let creatorId = req.userInfo.id;
       const albums = await albumsService.getMyAccounts(creatorId);
+      return res.send(albums);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async getCollaboratedAlbums(req, res, next) {
+    try {
+      let creatorId = req.userInfo.id;
+      const albums = await albumsService.getCollaboratedAlbums(creatorId);
       return res.send(albums);
     } catch (error) {
       next(error);

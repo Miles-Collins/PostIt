@@ -41,13 +41,16 @@ class AlbumsService {
   }
   async Create(albumData) {
     let album = await dbContext.Album.create(albumData);
+    await album.populate("creator");
     return album;
   }
 
   // SECTION PICTURES
 
   async getPictures(albumId) {
-    let pictures = await dbContext.Picture.find({ albumId });
+    let pictures = await dbContext.Picture.find({ albumId }).populate(
+      "creator"
+    );
     return pictures;
   }
 
@@ -56,7 +59,7 @@ class AlbumsService {
   async getMembers(albumId) {
     // let album = await this.getOne(albumId);
     let members = await dbContext.AlbumMember.find({ albumId })
-      .populate("account")
+      .populate("profile")
       .populate("album");
     return members;
   }
@@ -66,6 +69,21 @@ class AlbumsService {
   async getMyAccounts(creatorId) {
     let albums = await dbContext.Album.find({ creatorId });
     return albums;
+  }
+
+  async getCollaboratedAlbums(accountId) {
+    let collaboratedAlbums = await dbContext.AlbumMember.find({
+      accountId,
+    })
+      .populate({
+        path: "album",
+        populate: {
+          path: "creator memberCount",
+        },
+      })
+      .populate("profile");
+
+    return collaboratedAlbums;
   }
 }
 

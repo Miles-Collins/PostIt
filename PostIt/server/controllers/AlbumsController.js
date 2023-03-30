@@ -10,7 +10,7 @@ export class AlbumsController extends BaseController {
       .get("", this.getAll)
       .get("/:id", this.getOne)
       .get("/:id/pictures", this.getPictures)
-      .get("/:id/members", this.getMembers)
+      .get("/:id/collaborators", this.getMembers)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post("", this.create)
       .put("/:id", this.edit)
