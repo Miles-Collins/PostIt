@@ -13,11 +13,16 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <p># Collaborators</p>
+          <p>Collaborators: <span>{{ albumMembers.length }}</span></p>
         </div>
-        <div class="col-md-6">
-          <button class="btn btn-primary">Collaborate</button>
+        <div class="col-md-6" v-if="!foundCollab">
+          <button class="btn btn-primary" @click="collabOnAlbum()">Collab</button>
         </div>
+
+        <div class="col-md-6" v-else>
+          <button class="btn btn-danger" @click="removeCollab(foundCollab.albumMemberId)">Remove Collab</button>
+        </div>
+
       </div>
       <div class="row">
         <!-- STUB COLLABORATOR CARDS WILL GO HERE -->
@@ -98,7 +103,31 @@ export default {
     return {
       album: computed(() => AppState.album),
       pictures: computed(() => AppState.pictures),
-      albumMembers: computed(() => AppState.albumMembers)
+      albumMembers: computed(() => AppState.albumMembers),
+      foundCollab: computed(() => AppState.albumMembers.find(a => a.id == AppState.account.id)),
+
+      async collabOnAlbum() {
+        try {
+          await albumMembersService.collabOnAlbum({ albumId: route.params.albumId })
+        } catch (error) {
+          console.error(error)
+          // @ts-ignore 
+          Pop.error(('[ERROR]'), error.message)
+        }
+      },
+
+      async removeCollab(albumMemberId) {
+        try {
+          if (await Pop.confirm('Are you sure you want to stop collabing?')) {
+            await albumMembersService.removeCollab(albumMemberId)
+          }
+        } catch (error) {
+          console.error(error)
+          // @ts-ignore 
+          Pop.error(('[ERROR]'), error.message)
+        }
+      }
+
     }
   }
 };

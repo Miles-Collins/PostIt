@@ -3,11 +3,11 @@
   <div class="row justify-content-center">
     <div class="col-md-10">
       <h1>My Albums</h1>
-      <div class="row" v-if="account.id == albums.creatorId">
+      <!-- <div class="row" v-if="profile.id == albums?.creatorId">
         <div class="col-md-4" v-for="a in myAlbums" :key="a.id">
           <AlbumCard :album="a" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -84,7 +84,7 @@ export default {
         }
       }),
       myAlbums: computed(() => AppState.myAlbums),
-      account: computed(() => AppState.account),
+      profile: computed(() => AppState.account),
 
       changeFilterCategory(category) {
         filterCategory.value = category

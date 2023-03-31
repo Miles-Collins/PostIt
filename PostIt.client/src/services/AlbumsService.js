@@ -10,6 +10,7 @@ class AlbumsService{
     // console.log('[GETTING ALBUMS]', res.data);
     AppState.albums = res.data.map(a => new Album(a))
     console.log('[ALBUMS IN THE APPSTATE]', AppState.albums);
+    // AppState.albums = albums
   }
 
   async getAlbumById(albumId){
