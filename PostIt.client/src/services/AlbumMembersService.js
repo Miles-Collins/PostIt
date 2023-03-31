@@ -29,6 +29,12 @@ class AlbumMembersService{
     }
   }
 
+  async getMyCollabAlbums(){
+    const res = await api.get('account/collaborators')
+    console.log('[GETTING MY COLLABS]', res.data);
+    AppState.myAlbums = res.data.map(a => new CollabAlbum(a))
+  }
+
 }
 
 

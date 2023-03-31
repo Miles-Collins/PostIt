@@ -22,7 +22,13 @@ class AlbumMembersService {
     }
 
     let member = await dbContext.AlbumMember.create(memberData);
-    await member.populate("album");
+    await member.populate({
+      path: 'album',
+      populate: {
+        path: 'creator',
+        select: 'name picture'
+      }
+    });
     await member.populate("profile");
     return member;
   }

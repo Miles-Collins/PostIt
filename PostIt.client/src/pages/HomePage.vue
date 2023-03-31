@@ -1,13 +1,13 @@
 <template>
   <!-- SECTION MY ALBUMS or ALBUMS I COLLABORATE ON -->
   <div class="row justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-10" v-if="account.id && myAlbums.length">
       <h1>My Albums</h1>
-      <!-- <div class="row" v-if="profile.id == albums?.creatorId">
+      <div class="row">
         <div class="col-md-4" v-for="a in myAlbums" :key="a.id">
           <AlbumCard :album="a" />
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
 
@@ -52,6 +52,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import AlbumCard from '../components/AlbumCard.vue';
+import { albumMembersService } from '../services/AlbumMembersService.js';
 import { albumsService } from '../services/AlbumsService.js';
 import Pop from '../utils/Pop.js';
 
@@ -71,8 +72,19 @@ export default {
       }
     }
 
+    // async function getMyCollabAlbums() {
+    //   try {
+    //     await albumMembersService.getMyCollabAlbums()
+    //   } catch (error) {
+    //     console.error(error)
+    //     // @ts-ignore 
+    //     Pop.error(('[ERROR]'), error.message)
+    //   }
+    // }
+
     onMounted(() => {
       getAllAlbums();
+      // getMyCollabAlbums()
     });
 
     return {
@@ -84,7 +96,7 @@ export default {
         }
       }),
       myAlbums: computed(() => AppState.myAlbums),
-      profile: computed(() => AppState.account),
+      account: computed(() => AppState.account),
 
       changeFilterCategory(category) {
         filterCategory.value = category
