@@ -12,6 +12,13 @@ class AlbumsService{
     console.log('[ALBUMS IN THE APPSTATE]', AppState.albums);
   }
 
+  async getAlbumById(albumId){
+    const res = await api.get(`api/albums/${albumId}`)
+    console.log('[GETTING ALBUM BY ID]', res.data);
+    AppState.album = res.data
+  }
+
+
   async createAlbum(albumData){
     const res = await api.post('api/albums', albumData)
     console.log('[CREATING AN ALBUM]', res.data);

@@ -73,7 +73,8 @@ export default {
       async createAlbum() {
         try {
           window.event.preventDefault()
-          await albumsService.createAlbum(editable.value)
+          const albumData = editable.value
+          await albumsService.createAlbum(albumData)
         } catch (error) {
           console.error(error)
           // @ts-ignore 

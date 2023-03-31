@@ -26,6 +26,7 @@ import { Album } from '../models/Album.js';
 import { RouterLink } from 'vue-router';
 
 export default {
+  // NOTE this keeps giving me a vue warning even though I mapped it to the model, had to change it to Object
   props: {
     album: { type: Object, required: true }
   },
