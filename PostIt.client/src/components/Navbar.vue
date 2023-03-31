@@ -14,10 +14,12 @@
       <ul class="navbar-nav me-auto">
         <li>
           <!-- NOTE import button from modal -->
-          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button v-if="account.id" type="button" class="btn btn-success" data-bs-toggle="modal"
+            data-bs-target="#albumModal">
             Create Album
           </button>
-          <button type="button" class="btn btn-danger">Archive Album</button>
+          <button v-if="account.id && album?.creatorId == account.id && route.name == 'AlbumDetails'" type="button"
+            class="btn btn-danger" :disabled="album.archived" @click="archiveAlbum()">Archive Album</button>
           <!-- <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
             About
           </router-link> -->
@@ -30,10 +32,35 @@
 </template>
 
 <script>
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import { AppState } from '../AppState.js';
+import { albumsService } from '../services/AlbumsService.js';
+import Pop from '../utils/Pop.js';
 import Login from './Login.vue'
 export default {
   setup() {
-    return {}
+    const route = useRoute()
+    return {
+      route,
+
+      account: computed(() => AppState.account),
+      album: computed(() => AppState.album),
+
+      async archiveAlbum() {
+        try {
+          if (await Pop.confirm('Do you want to archive this album?')) {
+            await albumsService.archiveAlbum()
+          }
+        } catch (error) {
+          console.error(error)
+          // @ts-ignore 
+          Pop.error(('[ERROR]'), error.message)
+        }
+      }
+
+
+    }
   },
   components: { Login }
 }

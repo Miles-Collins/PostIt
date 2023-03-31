@@ -10,11 +10,23 @@
   <!-- <footer class="bg-dark text-light">
     Made with 💖 by CodeWorks
   </footer> -->
+
+  <Modal id="albumModal">
+    <template #header>
+      <div>Create Album</div>
+    </template>
+
+    <template #bigBody>
+      <AlbumForm />
+    </template>
+  </Modal>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
+import AlbumForm from './components/AlbumForm.vue'
+import Modal from './components/Modal.vue'
 import Navbar from './components/Navbar.vue'
 
 export default {
@@ -23,7 +35,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, Modal, AlbumForm }
 }
 </script>
 <style lang="scss">

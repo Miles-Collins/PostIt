@@ -43,9 +43,6 @@
       </div>
     </div>
   </div>
-
-
-  <AlbumForm />
 </template>
 
 <script>
@@ -104,7 +101,6 @@ export default {
 
     };
   },
-  components: { AlbumCard }
 }
 </script>
 
