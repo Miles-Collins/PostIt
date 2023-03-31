@@ -4,10 +4,10 @@ import { Forbidden } from "../utils/Errors";
 class PicturesService {
   async Create(pictureData) {
     let albumId = pictureData.albumId;
-    let accountId = pictureData.accountId;
-    let collaborator = dbContext.AlbumMember.findOne({
-      albumId: albumId,
-      accountId: accountId,
+    let accountId = pictureData.creatorId;
+    let collaborator = await dbContext.AlbumMember.findOne({
+      albumId,
+      accountId,
     });
     if (collaborator == null) {
       throw new Forbidden(`You are not a collaborator on this Album.`);
