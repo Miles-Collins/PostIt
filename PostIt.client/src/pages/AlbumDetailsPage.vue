@@ -21,8 +21,10 @@
       </div>
       <div class="row">
         <!-- STUB COLLABORATOR CARDS WILL GO HERE -->
-        <p>Collaborator images</p>
-        <img src="" alt="">
+        <!-- <p>{{ a.name }}</p> -->
+        <div class="col-md-2" v-for="a in albumMembers" :key="a.id">
+          <img class="img-fluid rounded-circle" :src="a.picture" alt="">
+        </div>
       </div>
     </div>
 
@@ -95,7 +97,8 @@ export default {
 
     return {
       album: computed(() => AppState.album),
-      pictures: computed(() => AppState.pictures)
+      pictures: computed(() => AppState.pictures),
+      albumMembers: computed(() => AppState.albumMembers)
     }
   }
 };
