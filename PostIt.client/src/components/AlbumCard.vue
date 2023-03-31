@@ -10,9 +10,11 @@
       </div>
 
       <!-- TODO memberCount will go here -->
-      <!-- <div class="row">
-        <p>{{}}</p>
-      </div> -->
+      <div class="row text-dark">
+        <div class="col-md-12">
+          <p>{{ album.memberCount }}</p>
+        </div>
+      </div>
 
     </router-link>
   </div>
