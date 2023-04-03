@@ -9,14 +9,8 @@ export class Album {
     this.category = data.category
     this.archived = data.archived
     this.creatorId = data.creatorId
-    // console.log(data.creator);
     this.creator = new Profile(data.creator)
     this.memberCount = data.memberCount || 0
-
-
-    // if(!data.creator){
-    //   console.log(this);
-    // }
   }
 }
 

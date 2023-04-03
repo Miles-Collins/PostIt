@@ -49,7 +49,6 @@
 import { computed, onMounted, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import AlbumCard from '../components/AlbumCard.vue';
-import { albumMembersService } from '../services/AlbumMembersService.js';
 import { albumsService } from '../services/AlbumsService.js';
 import Pop from '../utils/Pop.js';
 
@@ -69,19 +68,8 @@ export default {
       }
     }
 
-    // async function getMyCollabAlbums() {
-    //   try {
-    //     await albumMembersService.getMyCollabAlbums()
-    //   } catch (error) {
-    //     console.error(error)
-    //     // @ts-ignore 
-    //     Pop.error(('[ERROR]'), error.message)
-    //   }
-    // }
-
     onMounted(() => {
       getAllAlbums();
-      // getMyCollabAlbums()
     });
 
     return {
