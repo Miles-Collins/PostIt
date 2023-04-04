@@ -13,6 +13,12 @@ class AlbumsService {
     // AppState.albums = albums
   }
 
+  async getAlbumById(albumId) {
+    const res = await api.get(`api/albums/${albumId}`)
+    console.log('[GETTING ALBUM BY ID]', res.data);
+    AppState.album = res.data
+  }
+
   async createAlbum(albumData) {
     const res = await api.post('api/albums', albumData)
     console.log('[CREATING AN ALBUM]', res.data);
@@ -24,12 +30,6 @@ class AlbumsService {
     const res = await api.delete(`api/albums/${albumId}`)
     console.log('[ARCHIVING AN ALBUM]', res.data);
     AppState.album.archived = true
-  }
-
-  async getAlbumById(albumId) {
-    const res = await api.get(`api/albums/${albumId}`)
-    console.log('[GETTING ALBUM BY ID]', res.data);
-    AppState.album = res.data
   }
 
 }
