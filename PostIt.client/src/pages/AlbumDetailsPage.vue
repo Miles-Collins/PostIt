@@ -17,6 +17,7 @@
         <div class="col-md-6">
           <p>Collaborators: <span>{{ albumMembers.length }}</span></p>
         </div>
+
         <div class="col-md-6" v-if="!foundCollab && account.id">
           <button class="btn btn-primary" @click="collabOnAlbum()">Collab</button>
         </div>
@@ -124,7 +125,9 @@ export default {
       account: computed(() => AppState.account),
       pictures: computed(() => AppState.pictures),
       albumMembers: computed(() => AppState.albumMembers),
+
       foundCollab: computed(() => AppState.albumMembers.find(a => a.id == AppState.account.id)),
+
       async collabOnAlbum() {
         try {
           await albumMembersService.collabOnAlbum({ albumId: route.params.albumId });
